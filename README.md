@@ -1,2 +1,2 @@
 # angular-apollo-todo-example
-:memo: Todo example app built with Angular &amp; Apollo
+![](http://i.imgur.com/acxRg0p.png)
