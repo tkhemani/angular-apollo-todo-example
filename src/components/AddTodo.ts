@@ -1,5 +1,7 @@
 import {
-  Component
+  Component,
+  Output,
+  EventEmitter
 } from '@angular/core';
 
 import TodoTextInput from './TodoTextInput.ts';
@@ -12,13 +14,15 @@ import TodoTextInput from './TodoTextInput.ts';
   template: `
     <todo-text-input
       className='new-todo'
-      onSave="_handleSave($event)"
+      (onSave)="_handleSave($event)"
       placeholder='Add...'>
     </todo-text-input>
   `
 })
 export default class AddTodo {
-  _handleSave (text) {
-    console.log('AddTodo', text);
+  @Output() onSave: EventEmitter<string> = new EventEmitter();
+
+  _handleSave (text: string) {
+    this.onSave.emit(text);
   }
 }

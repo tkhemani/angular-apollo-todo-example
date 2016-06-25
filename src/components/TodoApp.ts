@@ -6,33 +6,39 @@ import {
   Apollo
 } from 'angular2-apollo';
 
-import gql from 'apollo-client/gql';
+import gql from 'graphql-tag';
 
 import {
   client
 } from '../client.ts';
 
 import AddTodo from './AddTodo.ts';
+import TodoList from './TodoList.ts';
+import TodoListFooter from './TodoListFooter.ts';
 
 @Component({
   selector: 'todo-app',
   directives: [
     AddTodo,
+    TodoList,
+    TodoListFooter
   ],
   template: `
   <div>
     <section class='todoapp'>
       <header class='header'>
-        <add-todo></add-todo>
+        <add-todo
+          (onSave)="addTodo($event)">
+        </add-todo>
       </header>
-      <!--TodoList
-        todos={this.props.todos.allTodos || []}
-        filter={this.props.filter}
-        renameTodo={this.props.mutations.renameTodo}
-        deleteTodo={this.props.mutations.deleteTodo}
-        toggleTodo={this.props.mutations.toggleTodo}
-      />
-      <TodoListFooter setFilter={this.props.setFilter} /-->
+      <todo-list
+        [todos]="todos.allTodos"
+        [filter]="filter"
+        (renameTodo)="rename($event)"
+        (deleteTodo)="delete($event)"
+        (toggleTodo)="toggle($event)">
+      </todo-list>
+      <todo-list-footer (onFilter)="onFilter($event)"></todo-list-footer>
     </section>
     <footer class='info'>
       <p>
@@ -92,7 +98,7 @@ import AddTodo from './AddTodo.ts';
     return {
       todos: {
         query: gql`
-          {
+          query Todos {
             allTodos {
               id
               complete
@@ -107,5 +113,33 @@ import AddTodo from './AddTodo.ts';
   }
 })
 export default class TodoApp {
-  todos: any;
+  todos: any[];
+  filter: string;
+  renameTodo: (todo: any, text: string) => Promise<any>;
+  toggleTodo: (todo: any, complete: boolean) => Promise<any>;
+  deleteTodo: (todo: any) => Promise<any>;
+
+  onFilter(filter: string) {
+    this.filter = filter;
+  }
+
+  rename({
+    todo,
+    text
+  }) {
+    this.renameTodo(todo, text);
+  }
+
+  toggle({
+    todo,
+    complete
+  }) {
+    this.toggleTodo(todo, complete);
+  }
+
+  delete({
+    todo
+  }) {
+    this.deleteTodo(todo);
+  }
 }

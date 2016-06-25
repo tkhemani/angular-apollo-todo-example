@@ -22,76 +22,37 @@ const ESC_KEY_CODE = 27;
 })
 export default class TodoTextInput {
   @Input() placeholder: string;
+  @Input() initialValue: string;
   @Input() className: string;
-  @Output() onCancel: EventEmitter<string> = new EventEmitter();
-  @Output() onDelete: EventEmitter<string> = new EventEmitter();
+  @Output() onCancel: EventEmitter<any> = new EventEmitter();
+  @Output() onDelete: EventEmitter<any> = new EventEmitter();
   @Output() onSave: EventEmitter<string> = new EventEmitter();
 
-  text :string;
+  text: string;
+
+  ngOnInit() {
+    this.text = this.initialValue || '';
+  }
+
+  _commitChanges() {
+    const newText = this.text.trim();
+
+    if (newText === '') {
+      this.onDelete.emit(null);
+    } else if (newText === this.initialValue) {
+      this.onCancel.emit(null);
+    } else if (newText !== '') {
+      this.onSave.emit(this.text);
+      this.text = '';
+    }
+  }
 
   _handleEnter() {
-    console.log('enter');
+    this._commitChanges();
   }
 
   _handleEsc() {
-    console.log('esc');
+    this.onCancel.emit(null);
+    this.text = '';
   }
 }
-
-
-
-/*export default class TodoTextInput extends React.Component {
-  static propTypes = {
-    className: PropTypes.string,
-    initialValue: PropTypes.string,
-    onCancel: PropTypes.func,
-    onDelete: PropTypes.func,
-    onSave: PropTypes.func.isRequired,
-    placeholder: PropTypes.string,
-  }
-
-  state = {
-    isEditing: false,
-    text: this.props.initialValue || '',
-  }
-
-  componentDidMount () {
-    ReactDOM.findDOMNode(this).focus()
-  }
-
-  _commitChanges = () => {
-    var newText = this.state.text.trim()
-    if (this.props.onDelete && newText === '') {
-      this.props.onDelete()
-    } else if (this.props.onCancel && newText === this.props.initialValue) {
-      this.props.onCancel()
-    } else if (newText !== '') {
-      this.props.onSave(newText)
-      this.setState({text: ''})
-    }
-  }
-
-  _handleChange = (e) => {
-    this.setState({text: e.target.value})
-  }
-
-  _handleKeyDown = (e) => {
-    if (this.props.onCancel && e.keyCode === ESC_KEY_CODE) {
-      this.props.onCancel()
-    } else if (e.keyCode === ENTER_KEY_CODE) {
-      this._commitChanges()
-    }
-  }
-
-  render () {
-    return (
-      <input
-        className={this.props.className}
-        onChange={this._handleChange}
-        onKeyDown={this._handleKeyDown}
-        placeholder={this.props.placeholder}
-        value={this.state.text}
-      />
-    )
-  }
-}*/
