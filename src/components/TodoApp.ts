@@ -1,38 +1,21 @@
-import {
-  Component
-} from '@angular/core';
-
-import {
-  Apollo
-} from 'angular2-apollo';
+import { Component, OnInit } from '@angular/core';
+import { Angular2Apollo, ApolloQueryObservable } from 'angular2-apollo';
+import { ApolloQueryResult } from 'apollo-client';
 
 import gql from 'graphql-tag';
 
-import {
-  client
-} from '../client.ts';
-
-import AddTodo from './AddTodo.ts';
-import TodoList from './TodoList.ts';
-import TodoListFooter from './TodoListFooter.ts';
-
 @Component({
   selector: 'todo-app',
-  directives: [
-    AddTodo,
-    TodoList,
-    TodoListFooter
-  ],
   template: `
   <div>
     <section class='todoapp'>
       <header class='header'>
         <add-todo
-          (onSave)="addTodo($event)">
+          (onSave)="add($event)">
         </add-todo>
       </header>
       <todo-list
-        [todos]="todos.allTodos"
+        [todos]="todos | async | select: 'allTodos'"
         [filter]="filter"
         (renameTodo)="rename($event)"
         (deleteTodo)="delete($event)"
@@ -48,98 +31,83 @@ import TodoListFooter from './TodoListFooter.ts';
   </div>
   `
 })
-@Apollo({
-  client,
-  mutations(context: TodoApp) {
-    return {
-      addTodo: (text) => ({
-        mutation: gql`
-          mutation addTodo($text: String!) {
-            createTodo(complete: false, text: $text) { id }
-          }
-        `,
-        variables: { text },
-      }),
-      renameTodo: (todo, text) => ({
-        mutation: gql`
-          mutation renameTodo($id: ID!, $text: String!) {
-            updateTodo(id: $id, text: $text) { id }
-          }
-        `,
-        variables: {
-          id: todo.id,
-          text,
-        },
-      }),
-      deleteTodo: (todo) => ({
-        mutation: gql`
-          mutation deleteTodo($id: ID!) {
-            deleteTodo(id: $id) { id }
-          }
-        `,
-        variables: {
-          id: todo.id,
-        },
-      }),
-      toggleTodo: (todo, complete) => ({
-        mutation: gql`
-          mutation toggleTodo($id: ID!, $complete: Boolean!) {
-            updateTodo(id: $id, complete: $complete) { id }
-          }
-        `,
-        variables: {
-          id: todo.id,
-          complete,
-        },
-      }),
-    }
-  },
-  queries() {
-    return {
-      todos: {
-        query: gql`
-          query Todos {
-            allTodos {
-              id
-              complete
-              text
-            }
-          }
-        `,
-        forceFetch: false,
-        pollInterval: 1000,
-      }
-    }
-  }
-})
-export default class TodoApp {
-  todos: any[];
+export default class TodoApp implements OnInit {
+  todos: ApolloQueryObservable<ApolloQueryResult>;
   filter: string;
-  renameTodo: (todo: any, text: string) => Promise<any>;
-  toggleTodo: (todo: any, complete: boolean) => Promise<any>;
-  deleteTodo: (todo: any) => Promise<any>;
+
+  constructor(
+    private apollo: Angular2Apollo
+  ) {}
+
+  ngOnInit(): void {
+    this.todos = this.apollo.watchQuery({
+      query: gql`
+        query Todos {
+          allTodoes {
+            id
+            complete
+            text
+          }
+        }
+      `,
+      forceFetch: false,
+      pollInterval: 1000,
+    });
+  }
 
   onFilter(filter: string) {
     this.filter = filter;
   }
 
-  rename({
-    todo,
-    text
-  }) {
-    this.renameTodo(todo, text);
+  add(text) {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation addTodo($text: String!) {
+          createTodo(complete: false, text: $text) { id }
+        }
+      `,
+      variables: { text },
+    });
   }
 
-  toggle({
-    todo,
-    complete
-  }) {
-    this.toggleTodo(todo, complete);
+  rename({ todo, text }) {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation renameTodo($id: ID!, $text: String!) {
+          updateTodo(id: $id, text: $text) { id }
+        }
+      `,
+      variables: {
+        id: todo.id,
+        text,
+      },
+    });
   }
 
-  delete({
-    todo
-  }) {
-    this.deleteTodo(todo);
+  toggle({ todo, complete }) {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation toggleTodo($id: ID!, $complete: Boolean!) {
+          updateTodo(id: $id, complete: $complete) { id }
+        }
+      `,
+      variables: {
+        id: todo.id,
+        complete,
+      },
+    });
+  }
+
+  delete({ todo }) {
+    this.apollo.mutate({
+      mutation: gql`
+        mutation deleteTodo($id: ID!) {
+          deleteTodo(id: $id) { id }
+        }
+      `,
+      variables: {
+        id: todo.id,
+      },
+    });
   }
 }

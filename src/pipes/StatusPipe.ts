@@ -1,11 +1,9 @@
-import {
-  Pipe
-} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'status'
 })
-export default class StatusPipe {
+export default class StatusPipe implements PipeTransform {
   transform(todos: any[], status?: string) {
     if (todos) {
       const complete = {

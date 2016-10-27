@@ -1,17 +1,7 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
-
-import TodoTextInput from './TodoTextInput.ts';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'todo',
-  directives: [
-    TodoTextInput
-  ],
   template: `
     <li
       [ngClass]="{'completed': todo.complete, 'editing': isEditing}">
