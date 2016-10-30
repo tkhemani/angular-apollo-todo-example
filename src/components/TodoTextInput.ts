@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter,
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 const ENTER_KEY_CODE = 13;
 const ESC_KEY_CODE = 27;
@@ -12,11 +7,12 @@ const ESC_KEY_CODE = 27;
   selector: 'todo-text-input',
   template: `
   <input
-    [ngClass]='className'
+    [ngClass]="className"
     [(ngModel)]="text"
     (keydown.enter)="_handleEnter()"
     (keydown.esc)="_handleEsc()"
     placeholder="{{placeholder}}"
+    name="todo-input"
   />
   `
 })

@@ -1,23 +1,7 @@
-import {
-  Component,
-  Input,
-  Output,
-  EventEmitter
-} from '@angular/core';
-
-import Todo from './Todo.ts';
-import StatusPipe from '../pipes/StatusPipe.ts';
-import ReversePipe from '../pipes/ReversePipe.ts';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'todo-list',
-  directives: [
-    Todo
-  ],
-  pipes: [
-    StatusPipe,
-    ReversePipe
-  ],
   template: `
     <section class='main'>
       <ul class='todo-list'>

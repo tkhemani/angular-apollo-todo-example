@@ -1,23 +1,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: ['whatwg-fetch', './src/app.ts'],
+  entry: './build/app.js',
   output: {
     publicPath: '/'
   },
   module: {
-    preLoaders: [{
-      test: /\.js$/,
-      loader: 'eslint',
-      exclude: /node_modules/
-    }],
     loaders: [{
       test: /\.css/,
       loader: 'style!css'
-    }, {
-      test: /\.ts$/,
-      loader: 'ts-loader',
-      exclude: /node_modules/
     }]
   },
   plugins: [
