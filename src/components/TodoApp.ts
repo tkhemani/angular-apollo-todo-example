@@ -51,7 +51,6 @@ export default class TodoApp implements OnInit {
         }
       `,
       forceFetch: false,
-      pollInterval: 1000,
     });
   }
 
