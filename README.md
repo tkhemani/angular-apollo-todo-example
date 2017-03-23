@@ -15,7 +15,7 @@ type Post {
 
 <details>
 <summary>
-What is the Graphcool CLI and how do I get it?
+<b>What is the Graphcool CLI and how do I get it?</b>
 </summary> 
 The Graphcool CLI is a command-line tool that allows to interact with our platform from a terminal. It provides similar capabalities as the <a href='https://console.graph.cool'>Graphcool console</a> and particularly makes it easy to create new projects using the 
  <code>graphcool create</code> command.
