@@ -30,10 +30,13 @@ Since we're using Apollo in this example, we need to use the endpoint for the Si
 
 <details>
 <summary>
-**What is the Graphcool CLI and how do I get it?**
+What is the Graphcool CLI and how do I get it?
 </summary> 
-> The Graphcool CLI is a command-line tool that allows to interact with our platform from a terminal. It provides similar capabalities as the [Graphcool console](https://console.graph.cool) and particularly makes it easy to create new projects using the `graphcool create` command.
+The Graphcool CLI is a command-line tool that allows to interact with our platform from a terminal. It provides similar capabalities as the Graphcool console (https://console.graph.cool) and particularly makes it easy to create new projects using the `graphcool create` command.
 You can easily install the the Graphcool CLI by calling `npm install graphcool` in a terminal. 
+
+<a href=''>test</a>
+
 </details>
 
 
