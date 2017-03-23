@@ -28,11 +28,13 @@ This will generate two GraphQL endpoints:
 
 Since we're using Apollo in this example, we need to use the endpoint for the Simple API!
 
-
-> **What is the Graphcool CLI and how do I get it?**
-> 
+<details>
+<summary>
+**What is the Graphcool CLI and how do I get it?**
+</summary> 
 > The Graphcool CLI is a command-line tool that allows to interact with our platform from a terminal. It provides similar capabalities as the [Graphcool console](https://console.graph.cool) and particularly makes it easy to create new projects using the `graphcool create` command.
 You can easily install the the Graphcool CLI by calling `npm install graphcool` in a terminal. 
+</details>
 
 
 ### 2. Connect the example project with the GraphQL server 🛰
