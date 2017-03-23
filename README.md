@@ -29,8 +29,6 @@ type Post {
 After you cloned the repository, all you have to do is provide this schema as an input argument to `graphcool create` in a terminal:
 
 ```sh
-git clone https://github.com/graphcool-examples/vue-apollo-instagram-example.git
-cd vue-apollo-instagram-example
 graphcool create instagram.schema 
 ```
 
