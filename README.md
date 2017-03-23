@@ -1,6 +1,6 @@
 # vue-apollo-instagram
 
-## Get your GraphQL endpoint ⚙
+### 1. Get your GraphQL endpoint ⚙
 
 You first need to obtain a GraphQL endpoint so that you can connect to your own backend from the example application. 
 
@@ -35,7 +35,7 @@ Since we're using Apollo in this example, we need to use the endpoint for the Si
 You can easily install the the Graphcool CLI by calling `npm install graphcool` in a terminal. 
 
 
-## Connect the example project with the GraphQL server 🛰
+### 2. Connect the example project with the GraphQL server 🛰
 
 You now have to tell the `ApolloClient` in the example project which GraphQL backend it should connect to. That is where we have to use the endpoint we generated in the previous step.
 
@@ -48,7 +48,7 @@ const networkInterface = createNetworkInterface({ uri: '__SIMPLE_API_ENDPOINT__'
 Awesome! The `ApolloClient` that gets instantiated with the `networkInterface` now knows which server it can talk to.
 
 
-## Run the example 🎉
+### 3. Run the example 🎉
 
 All that's left to do now is installing the app's dependencies and then running the application:
 
@@ -58,10 +58,3 @@ yarn start
 ```
 
 That's it, have fun exploring the project 🚀
-
-
-## Help & Community [![Slack Status](https://slack.graph.cool/badge.svg)](https://slack.graph.cool)
-
-Join our [Slack community](http://slack.graph.cool/) if you run into issues or have questions. We love talking to you!
-
-![](http://i.imgur.com/5RHR6Ku.png)
