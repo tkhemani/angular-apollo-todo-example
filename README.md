@@ -2,7 +2,7 @@
 
 ### 1. Grab the code 🤓
 
-First download or clone this repository:
+First download or clone this repository by executing these commands in a terminal:
 
 ```sh
 git clone https://github.com/graphcool-examples/angular-apollo-todo-example.git
