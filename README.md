@@ -43,7 +43,7 @@ Copy the resulting endpoint for the `Simple API` and use it in the next step.
 
 ### 3. Connect the example project with the GraphQL server 🛰
 
-Open `./src/main.js` and provide the endpoint as the `uri` argument to the `createNetworkInterface` call:
+Open `./src/client.ts` and provide the endpoint as the `uri` argument to the `createNetworkInterface` call:
 
 ```js
 // replace `__SIMPLE_API_ENDPOINT__` with the endpoint from the previous step
