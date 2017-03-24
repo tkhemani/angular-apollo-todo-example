@@ -1,9 +1,16 @@
-# vue-apollo-instagram
+# angular-apollo-todo-example
 
-### 1. Get your GraphQL endpoint ⚙
+### 1. Grab the code 🤓
 
-You first need to obtain a GraphQL endpoint so that you can connect to your own backend from the example application. You can do so using with the [Graphcool CLI](https://www.npmjs.com/package/graphcool).
+First download or clone this repository:
 
+```sh
+git clone https://github.com/graphcool-examples/angular-apollo-todo-example.git
+cd angular-apollo-todo-example
+```
+
+
+### 2. Get your GraphQL endpoint with the [Graphcool CLI](https://www.npmjs.com/package/graphcool) ⚙
 
 <details>
 <summary>
@@ -16,8 +23,7 @@ You can easily install the the Graphcool CLI by calling <code>npm install graphc
 </details>
 <br>
 
-
-Using the Graphcool CLI, you simply provide a data model and the GraphQL API will be generated for you. We already included the required [schema](https://github.com/graphcool-examples/vue-apollo-instagram-example/blob/master/instagram.schema) in this GitHub repo, here is what it looks like:
+This is the data model for our example app (you can find it [here](https://github.com/graphcool-examples/vue-apollo-instagram-example/blob/master/instagram.schema) in the repo):
 
 ```graphql
 type Post {
@@ -26,34 +32,28 @@ type Post {
 }
 ```
 
-After you cloned the repository, all you have to do is provide this schema as an input argument to `graphcool create` in a terminal:
+Next, provide this schema as an input argument to `graphcool create` in a terminal:
 
 ```sh
 graphcool create instagram.schema 
 ```
 
-This will generate two GraphQL endpoints:
-
-- `Relay API`: Optimized for usage with [Relay](https://facebook.github.io/relay/)
-- `Simple API`: Can be used with any GraphQL client but optimized for [Apollo](http://dev.apollodata.com/)
-
-Since we're using Apollo in this example, we need to use the endpoint for the Simple API!
+Copy the resulting endpoint for the `Simple API` and use it in the next step.
 
 
-### 2. Connect the example project with the GraphQL server 🛰
-
-You now have to tell the `ApolloClient` in the example project which GraphQL backend it should connect to. That is where we have to use the endpoint we generated in the previous step.
+### 3. Connect the example project with the GraphQL server 🛰
 
 Open `./src/main.js` and provide the endpoint as the `uri` argument to the `createNetworkInterface` call:
 
 ```js
+// replace `__SIMPLE_API_ENDPOINT__` with the endpoint from the previous step
 const networkInterface = createNetworkInterface({ uri: '__SIMPLE_API_ENDPOINT__' })
 ```
 
 Awesome! The `ApolloClient` that gets instantiated with the `networkInterface` now knows which server it can talk to.
 
 
-### 3. Run the example 🎉
+### 4. Run the example 🎉
 
 All that's left to do now is installing the app's dependencies and then running the application:
 
