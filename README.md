@@ -35,7 +35,7 @@ type Todo {
 Next, provide this schema as an input argument to `graphcool create` in a terminal:
 
 ```sh
-graphcool create instagram.schema 
+graphcool create todo.schema 
 ```
 
 Copy the resulting endpoint for the `Simple API` and use it in the next step.
