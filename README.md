@@ -23,12 +23,12 @@ You can easily install the the Graphcool CLI by calling <code>npm install graphc
 </details>
 <br>
 
-This is the data model for our example app (you can find it [here](https://github.com/graphcool-examples/vue-apollo-instagram-example/blob/master/instagram.schema) in the repo):
+This is the data model for our example app (you can find it [here](https://github.com/graphcool-examples/angular-apollo-todo-example/blob/master/todo.schema) in the repo):
 
 ```graphql
-type Post {
-  description: String!
-  imageUrl: String!
+type Todo {
+  text: String!
+  complete: Boolean!
 }
 ```
 
